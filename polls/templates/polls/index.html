@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% extends 'polls/base.html' %}
+
+
+{% block body_block %}
+{% if user.is_authenticated %}
+<h1>Rango says... you're logged in now s {{ user.username }}!</h1>
+{% else %}
+<h1>Rango says... hello world!</h1>
+{% endif %}
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
+
+{% if latest_question_list %}
+<ul>
+{% for question in latest_question_list %}
+	<li><a href="{%url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+{% endfor %}
+</ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+{% endblock %}
+
+
